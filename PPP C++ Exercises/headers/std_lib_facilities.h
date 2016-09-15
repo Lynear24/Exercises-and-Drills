@@ -15,7 +15,7 @@
 	By Chapter 10, you don't need this file and after Chapter 21, you'll understand it
 
 	Revised April 25, 2010: simple_error() added
-	
+
 	Revised November 25 2013: remove support for pre-C++11 compilers, use C++11: <chrono>
 	Revised November 28 2013: add a few container algorithms
 	Revised June 8 2014: added #ifndef to workaround Microsoft C++11 weakness
@@ -250,6 +250,84 @@ template<typename C, typename Pred>
 Iterator<C> find_if(C& c, Pred p)
 {
 	return std::find_if(c.begin(), c.end(), p);
+}
+
+/*
+*
+*
+*Functions and constants used in Exercises
+*
+*/
+
+const double
+	cm_per_m = 100,
+	cm_per_in = 2.54,
+	in_per_ft = 12;
+
+double convert_to_meters(double value, string unit)
+{
+	double in_m = 0;
+
+	if (unit == "cm")
+	{
+		in_m = value / cm_per_m;
+	}
+
+	else if (unit == "in")
+	{
+		in_m = value * cm_per_in / cm_per_m;
+	}
+
+	else if (unit == "ft")
+	{
+		in_m = value * in_per_ft * cm_per_in / cm_per_m;
+	}
+
+	else if (unit == "m")
+	{
+		in_m = value;
+	}
+
+	else
+		in_m = 0;
+
+	return in_m;
+}
+
+bool is_name_unique(vector<string> names, string name)
+{
+	for (string x : names)
+	{
+		if (x == name)
+			return false;
+	}
+
+	return true;
+}
+
+int find_name_index(vector<string> names, string name)
+{
+	for (int i = 0; i < names.size(); ++i)
+	{
+		if (names[i] == name)
+			return i;
+	}
+
+	// Nothing match in names
+	return -1;
+}
+
+vector<int> find_score_indices(vector<int> scores, int score)
+{
+	vector<int> indices;
+
+	for (int i = 0; i < scores.size(); ++i)
+	{
+		if (scores[i] == score)
+			indices.push_back(i);
+	}
+
+	return indices;
 }
 
 #endif //H112
